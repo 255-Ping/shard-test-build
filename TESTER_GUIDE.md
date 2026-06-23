@@ -23,12 +23,15 @@ Please read the **"Known incomplete / placeholder"** section near the bottom bef
 | Fire active ability | **Hold Left Mouse Button** |
 | Switch ability slot | **1** / **2** |
 | Open crafting | **C** (only when the Craft Meter is full) |
-| Pause | **Esc** |
+| Pause (full menu) | **Esc** |
+| Peek pause (freeze, keep the board visible) | **P** |
 | Screenshot | **F2** (see "Where screenshots go" below) |
 
 The game renders at a small internal resolution and scales up, so pixel art stays crisp. The window is resizable.
 
 ### Where screenshots go
+
+**Tip: press `P` to freeze the action first.** `P` is a "peek pause", it freezes the run but keeps the whole game board visible (unlike `Esc`, which covers the screen with a menu). That makes it easy to line up and capture exactly the moment you want before you take a screenshot. Press `P` again to resume.
 
 The in-game **F2** screenshot saves a PNG named `shard_<date>_<time>.png`, but **where it lands depends on how you're playing**:
 
@@ -223,7 +226,7 @@ These are visible in the build but intentionally unfinished:
 When you hit something, please include:
 1. **What you did** (steps to reproduce).
 2. **What you expected** vs **what happened**.
-3. A **screenshot** or short clip if you can. On the browser (GitHub Pages) build, use your OS shortcut (`Win`+`Shift`+`S` / `Cmd`+`Shift`+`4`); the in-game **F2** only works for desktop builds (see "Where screenshots go").
+3. A **screenshot** or short clip if you can. Tip: press **P** to freeze the frame (the board stays visible) before you capture. On the browser (GitHub Pages) build, use your OS shortcut (`Win`+`Shift`+`S` / `Cmd`+`Shift`+`4`); the in-game **F2** only works for desktop builds (see "Where screenshots go").
 4. Your **character mode** (Standard/Ironman) and roughly your **level**, plus whether it was mid-run, in the craft screen, or in a menu.
 
 Thanks for helping test Shard. Have fun breaking it.
