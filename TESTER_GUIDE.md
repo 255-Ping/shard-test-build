@@ -111,7 +111,7 @@ Manual bases (Projectile / Nova / Beam / Trap) fire only from the **active** slo
 - **Shatter** (the headline reaction): hit a **Frozen** enemy with **Fire** (or freeze a burning one) to detonate a big icy AoE scaled to the enemy's max HP. **Permafrost** makes frozen enemies shatter on their own after a couple seconds.
 - **Mark** (Light/Luminate): marked enemies take **+20% damage from all sources**. Each kill by a Luminate ability banks a stacking damage buff to **all** your abilities (shown as "LIGHT ×N" under the timer).
 - **Corrupt** (Void): stacks a debuff; at full stacks the enemy is **Corrupted** and attacks its own neighbours.
-- **Light vs Void tension**: a void hit strips a Mark off an enemy.
+- **Light vs Void tension**: a void hit strips a Mark off an enemy. It also **wipes your own Luminate light stacks** (your "LIGHT ×N" buff): any bullet touched by a void fragment counts as a void source, so landing a void hit resets that buff to zero. In other words, leaning on void and stacking light at the same time fights itself.
 
 Combining elements across your two ability slots (e.g. one Ice ability to freeze, one Fire ability to shatter) is the intended way to play. Please test cross-element combos heavily.
 
@@ -123,18 +123,23 @@ This is one of the most important things to test. The model is **soft persistenc
 
 | Carries over | Does **not** carry over |
 |---|---|
-| Your **equipped loadout** (both abilities, fully assembled) | Loose **Common** fragments |
-| **Rare / Epic** non-base fragments (your "stockpile") | **Shards** (reset to 0 each run) |
-| Character **XP, level, and unlocked perks** | The **Craft Meter** (refills each run) |
-| **Avatar** and **mode** | Base fragments are not stockpiled (you re-acquire them in-run) |
+| Your **equipped loadout** (both abilities, fully assembled) | **Shards** (reset to 0 each run) |
+| **Every fragment you're holding**, any rarity or type (Common to Epic, modifiers and bases) | The **Craft Meter** (refills each run) |
+| Character **XP, level, and unlocked perks** | (nothing fragment-related: your whole haul carries) |
+| **Avatar** and **mode** | |
 
 A few specifics:
-- **You begin each run** with your equipped abilities plus your saved Rare/Epic stockpile. Everything else you build from what drops **during** the run.
-- A **brand-new character** starts with a single bare **Projectile** equipped.
-- **Surviving (killing the boss)** banks your stockpile and XP; both modes keep the character.
-- **Dying in Standard** still banks your stockpile and XP; you keep the character.
+- **All fragments carry over now.** Whatever you're holding at the end of a run (loose in your inventory, or sitting inside a stored/unequipped ability) is saved and handed back to you at the start of your next run as loose fragments. There's no rarity or type filter anymore: Commons, bases, modifiers, everything.
+- Your **equipped abilities** carry over fully assembled (their fragments stay locked inside them, they aren't broken back into loose parts).
+- **Stored (unequipped) abilities** are broken back down into their fragments when the run ends, and those fragments carry over.
+- A **brand-new character** starts with a single bare **Projectile** equipped and no other fragments.
+- The only way to lose a fragment is to have it **destroyed by decrafting** during the run (see section 4). Anything not destroyed comes back.
+- **Surviving (killing the boss)** banks your fragments and XP; both modes keep the character.
+- **Dying in Standard** still banks your fragments and XP; you keep the character.
 - **Dying in Ironman** ends the character permanently. Its file stays so it shows in the menu greyed-out with its final level, but it can't be played again.
-- **Quit to Menu** (from the Esc pause menu) also banks your run's rares.
+- **Quit to Menu** (from the Esc pause menu) also banks your fragments.
+
+The Continue screen shows each character's total saved **fragments** count.
 
 ### Leveling and skill trees
 - XP banks into your character at run end and raises your **level**. Each level = **1 skill point**.
@@ -147,12 +152,13 @@ A few specifics:
 ## 7. What we'd like you to test
 
 **Persistence**
-- [ ] Create a character, craft an ability, survive or die, return to menu, **Continue**. Is your loadout, level, and stockpile correct?
-- [ ] Earn a Rare/Epic fragment, end the run, start a new run. Is it in your inventory at the start?
+- [ ] Create a character, craft an ability, survive or die, return to menu, **Continue**. Is your loadout, level, and fragment haul correct?
+- [ ] Pick up a mix of fragments (Common modifiers, a base, a Rare/Epic), end the run, start a new run. Are **all** of them in your inventory at the start?
+- [ ] Leave an unequipped ability in **Storage**, end the run, start a new one. Did its fragments (including its base) carry over as loose fragments?
 - [ ] Level up, spend skill points, Respec, re-spend. Do points and perk effects behave?
 - [ ] **Ironman**: die and confirm the character becomes permanently unplayable (greyed out, Continue refuses it).
-- [ ] Confirm shards and the Craft Meter reset each run, while XP/level/stockpile persist.
-- [ ] Quit-to-menu from the pause screen mid-run. Are rares banked?
+- [ ] Confirm shards and the Craft Meter reset each run, while XP/level and your fragment haul persist.
+- [ ] Quit-to-menu from the pause screen mid-run. Are your fragments banked?
 
 **Fragments & crafting**
 - [ ] Craft with every base form (Projectile, Nova, Beam, Trap, Aura, Summon). Do slot counts match the table above?
@@ -166,6 +172,7 @@ A few specifics:
 - [ ] **Burn spread**, **Corrupt** turning enemies on each other, **Mark** damage bonus, **Luminate** stacking buff.
 - [ ] **Glaciate** shield (kill grants a shield that eats the next hit, shown as a cyan ring around you).
 - [ ] Mixing two elements across your two ability slots.
+- [ ] **Void wipes Light**: build up Luminate stacks ("LIGHT ×N" under the timer), then land a hit with a void ability (Corrupt / Entropy / Unravel). The stacks should drop to zero.
 
 **General feel / bugs**
 - [ ] Anything that crashes, freezes, or throws an error.
@@ -189,7 +196,7 @@ These are visible in the build but intentionally unfinished:
   - (All other perks, including damage, drop-weight, status-stack, shard/XP, chain/split, ice-shield, Berserker low-HP, Permafrost, and Luminate/Mark perks, **are** live.)
 - **Wildcard slots** appear on Rare/Epic ability frames, but **no wildcard fragments exist yet**, so those slots will always stay empty for now.
 - **Consecrate** (a Light fragment) is defined but its field effect isn't built, so it **won't drop** and does nothing if encountered.
-- **Void-vs-Light suppression** (a void source wiping your Luminate stacks) is wired but nothing in the current build triggers it; it's for future boss attacks.
+- **Void-vs-Light suppression** is now **partly live**: your own void abilities trigger it. Any bullet touched by a void fragment is a void source, so landing a void hit wipes your accumulated Luminate light stacks (see section 5). What is **not** built yet is the *enemy/boss* side of this, no enemy attack strips your light buff. So if your light stacks vanish while you are running a void ability, that is intended, not a bug.
 - **Corrupt's enemy-damage reduction** isn't wired yet (Corrupt only slows for now; the friendly-fire part does work).
 - **Missing art**: any fragment without finished art shows a **magenta "no texture"** placeholder of the right shape. It still works; it just looks unfinished.
 - There is **no audio** yet.
