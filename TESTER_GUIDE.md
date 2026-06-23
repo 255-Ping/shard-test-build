@@ -24,9 +24,24 @@ Please read the **"Known incomplete / placeholder"** section near the bottom bef
 | Switch ability slot | **1** / **2** |
 | Open crafting | **C** (only when the Craft Meter is full) |
 | Pause | **Esc** |
-| Screenshot | **F12** |
+| Screenshot | **F2** (see "Where screenshots go" below) |
 
 The game renders at a small internal resolution and scales up, so pixel art stays crisp. The window is resizable.
+
+### Where screenshots go
+
+The in-game **F2** screenshot saves a PNG named `shard_<date>_<time>.png`, but **where it lands depends on how you're playing**:
+
+- **Playing in your browser (the GitHub Pages link):** F2 saves the image into the browser's *private storage* for the page, **not** to your Downloads folder. You can't easily get the file back out, so **F2 is not useful for sharing screenshots on the web build.** Use your operating system's screenshot tool instead:
+  - **Windows:** `Win` + `Shift` + `S` (Snipping Tool), or `PrtSc`.
+  - **macOS:** `Cmd` + `Shift` + `4`.
+  - Then paste or attach that image to your bug report.
+- **Playing a downloaded desktop build:** F2 saves to the game's user-data folder, and the full path is printed to the log/console each time. The folder is:
+  - **Windows:** `%APPDATA%\Shard\screenshots\` (paste that into the File Explorer address bar).
+  - **macOS:** `~/Library/Application Support/Shard/screenshots/`
+  - **Linux:** `~/.local/share/Shard/screenshots/`
+
+If you're on the GitHub Pages link, just assume **F2 won't help** and grab screenshots with your OS shortcut above.
 
 ---
 
@@ -208,7 +223,7 @@ These are visible in the build but intentionally unfinished:
 When you hit something, please include:
 1. **What you did** (steps to reproduce).
 2. **What you expected** vs **what happened**.
-3. **Screenshot** (press **F12**) or a short clip if you can.
+3. A **screenshot** or short clip if you can. On the browser (GitHub Pages) build, use your OS shortcut (`Win`+`Shift`+`S` / `Cmd`+`Shift`+`4`); the in-game **F2** only works for desktop builds (see "Where screenshots go").
 4. Your **character mode** (Standard/Ironman) and roughly your **level**, plus whether it was mid-run, in the craft screen, or in a menu.
 
 Thanks for helping test Shard. Have fun breaking it.
