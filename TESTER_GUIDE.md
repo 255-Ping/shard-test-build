@@ -142,15 +142,15 @@ This is one of the most important things to test. The model is **soft persistenc
 | Carries over | Does **not** carry over |
 |---|---|
 | Your **equipped loadout** (both abilities, fully assembled) | **Shards** (reset to 0 each run) |
-| **Every fragment you're holding**, any rarity or type (Common to Epic, modifiers and bases) | The **Craft Meter** (refills each run) |
-| Character **XP, level, and unlocked perks** | (nothing fragment-related: your whole haul carries) |
+| Your **stored crafted abilities** (the Storage stash, kept assembled) | The **Craft Meter** (refills each run) |
+| **Every loose fragment you're holding**, any rarity or type (Common to Epic, modifiers and bases) | (nothing else: your whole haul carries) |
+| Character **XP, level, and unlocked perks** | |
 | **Avatar** and **mode** | |
 
 A few specifics:
-- **All fragments carry over now.** Whatever you're holding at the end of a run (loose in your inventory, or sitting inside a stored/unequipped ability) is saved and handed back to you at the start of your next run as loose fragments. There's no rarity or type filter anymore: Commons, bases, modifiers, everything.
-- Your **equipped abilities** carry over fully assembled (their fragments stay locked inside them, they aren't broken back into loose parts).
-- **Stored (unequipped) abilities** are broken back down into their fragments when the run ends, and those fragments carry over.
-- A **brand-new character** starts with a single bare **Projectile** equipped and no other fragments.
+- **All crafted abilities carry over fully assembled.** Both your **equipped** abilities and everything in **Storage** (unequipped crafted abilities) are saved exactly as built and handed straight back next run. They are *not* broken into fragments anymore; a stored "Nova + Amplify + Ignite" comes back as that same ability, still in Storage.
+- **All loose fragments carry over too**, any rarity or type (Commons, bases, modifiers, everything). They come back in your inventory at the start of the next run.
+- A **brand-new character** starts with a single bare **Projectile** equipped, an empty Storage, and no loose fragments.
 - The only way to lose a fragment is to have it **destroyed by decrafting** during the run (see section 4). Anything not destroyed comes back.
 - **Surviving (killing the boss)** banks your fragments and XP; both modes keep the character.
 - **Dying in Standard** still banks your fragments and XP; you keep the character.
@@ -172,7 +172,7 @@ The Continue screen shows each character's total saved **fragments** count.
 **Persistence**
 - [ ] Create a character, craft an ability, survive or die, return to menu, **Continue**. Is your loadout, level, and fragment haul correct?
 - [ ] Pick up a mix of fragments (Common modifiers, a base, a Rare/Epic), end the run, start a new run. Are **all** of them in your inventory at the start?
-- [ ] Leave an unequipped ability in **Storage**, end the run, start a new one. Did its fragments (including its base) carry over as loose fragments?
+- [ ] Craft a second ability so it lands in **Storage**, end the run, start a new one. Is that ability still sitting in Storage, fully assembled (not broken into fragments)?
 - [ ] Level up, spend skill points, Respec, re-spend. Do points and perk effects behave?
 - [ ] **Ironman**: die and confirm the character becomes permanently unplayable (greyed out, Continue refuses it).
 - [ ] Confirm shards and the Craft Meter reset each run, while XP/level and your fragment haul persist.
