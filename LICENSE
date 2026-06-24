@@ -1,11 +1,11 @@
-Shard — Proprietary License (Test Build)
+Shard: Proprietary License (Test Build)
 Copyright (c) 2026 255-Ping. All Rights Reserved.
 
-This repository and all of its contents authored by the copyright holder —
+This repository and all of its contents authored by the copyright holder,
 including but not limited to the compiled game build, the playable web export
 (for example the files under `docs/`, such as `index.html`, `index.js`,
 `index.wasm`, and `index.pck`), the tester guide, design documents, text, and
-any accompanying original assets (collectively, "the Project") — are the
+any accompanying original assets (collectively, "the Project"), are the
 exclusive property of the copyright holder.
 
 This is a private test build provided to selected testers for the sole purpose
@@ -25,7 +25,7 @@ explicit, written permission of the copyright holder, you may NOT:
      works based on the Project or any part of it;
 
   3. Distribute, publish, mirror, share, sublicense, sell, rent, lease, or
-     otherwise make the Project — or any link, password, or access to it —
+     otherwise make the Project, or any link, password, or access to it,
      available to any third party;
 
   4. Incorporate or use the Project, in whole or in part, in any other

@@ -1,4 +1,4 @@
-# Shard — Test Build
+# Shard: Test Build
 
 **Shard** is a top-down bullet-hell roguelite where you don't pick your upgrades, **you build them** from fragments enemies drop, mid-fight. This repository hosts the private playtest build.
 
