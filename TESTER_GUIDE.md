@@ -74,7 +74,7 @@ To come back to an existing character later, use **Continue** from the main menu
 Every enemy you kill can drop:
 - **Shards** (gold diamonds): currency, used only for decrafting. Fly to you when you get close.
 - **XP orbs** (cyan-green): bank into your character's level at the end of the run.
-- **Fragments** (icons): the building blocks of your abilities (roughly a 15% drop per normal enemy). New fragments show in the bottom-right **"NEW FRAGMENTS"** overlay, which pulses to nudge you toward crafting.
+- **Fragments** (icons): the building blocks of your abilities. Drop chance varies by enemy type (around 15% for a typical enemy): fast swarmers drop them rarely, while big tanky enemies drop them far more often, and the boss is a guaranteed drop. New fragments show in the bottom-right **"NEW FRAGMENTS"** overlay, which pulses to nudge you toward crafting.
 
 ---
 
