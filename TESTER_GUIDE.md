@@ -46,9 +46,26 @@ The in-game **F2** screenshot saves a PNG named `shard_<date>_<time>.png`, but *
 
 If you're on the GitHub Pages link, just assume **F2 won't help** and grab screenshots with your OS shortcut above.
 
+### Audio & Settings
+
+The game **now has sound**: a looping menu track, two battle themes that alternate during a run, and effect / UI sounds (pickups, run start, the craft-meter-full chime, button and slider clicks). On the **web build**, audio is muted by the browser until your **first click or keypress**, then it kicks in; that first-gesture delay is normal, not a bug.
+
+Open **Settings** from the main menu to adjust:
+- **Volume**: Master, Music, Effects, and UI Sounds (independent sliders).
+- **Display**: toggle the bottom-right **"new fragments"** overlay, and a **HUD Size** slider.
+
+Settings are saved and persist between sessions.
+
 ---
 
 ## 3. How to play (start here if you're lost)
+
+### The Main Menu
+From the menu you have:
+- **New Character** / **Continue** (resume a saved character).
+- **Collection**: a game-wide discovery log of every fragment in the game (see section 6).
+- **Settings**: audio volumes and a couple of display options (see "Audio & Settings" below).
+- **Exit**.
 
 ### Getting into a run
 1. **Main Menu** → **New Character**.
@@ -123,6 +140,13 @@ Manual bases (Projectile / Nova / Beam / Trap) fire only from the **active** slo
 - **Void** 🟣: Corrupt (debuff → turns enemies on each other), Entropy (chaos damage roll), Unravel (void implosion on kill).
 - **Light** ✨: Radiance (retaliation halo), Luminate (marks enemies, banks a stacking damage buff), Consecrate (see "incomplete" below).
 
+### Wildcards (the boss-tier band, now in)
+Wildcard fragments exist now and **fill the rainbow `+1` / `+2` wildcard slots** on Rare/Epic frames (and Common's single wildcard slot). They're meant to be the **boss reward**, but for now they're **seeded into the normal enemy drop pool at low weight** so you can find and test them without grinding bosses.
+
+A wildcard is **face-down until you craft it into an ability** (it shows the unknown glyph and a "???" tooltip in your inventory; crafting it reveals its real face and logs it in your Collection). The current pool is eight:
+- **Wired now**: **Overcharge** (+100% damage, but doubled cooldown), **Famine** (+80% damage, but ignores Luminate light stacks), **Resonance** (+15% damage per other equipped ability sharing its element).
+- **Registered but effect "coming soon"** (they craft and show a face/tooltip, but do nothing yet): **Surge, Prism, Windfall, Fracture, Parasite**.
+
 ### Status effects and reactions (worth testing deliberately)
 - **Burn** (Fire): ticks damage; at high stacks it **spreads** to nearby enemies.
 - **Chill → Freeze** (Ice): frost stacks slow the enemy, then **Freeze** it solid at full stacks.
@@ -155,9 +179,12 @@ A few specifics:
 - **Surviving (killing the boss)** banks your fragments and XP; both modes keep the character.
 - **Dying in Standard** still banks your fragments and XP; you keep the character.
 - **Dying in Ironman** ends the character permanently. Its file stays so it shows in the menu greyed-out with its final level, but it can't be played again.
-- **Quit to Menu** (from the Esc pause menu) also banks your fragments.
+- **Quit to Menu** (from the Esc pause menu) banks your fragments. In **Standard** the character survives; in **Ironman** quitting mid-run **counts as a death** (it's confirm-gated with a warning, and forfeits the character permanently).
 
 The Continue screen shows each character's total saved **fragments** count.
+
+### The Collection (game-wide discovery log)
+Open **Collection** from the main menu to see every fragment in the game, split into **Bases / Modifiers / Wildcards**, with a discovered/total count. Any fragment you've **ever** picked up (on **any** character) shows in full with its tooltip; ones you haven't found yet appear as a **dark silhouette** with a "???" tooltip, so the shape hints at what's still out there. Discovery is shared across all your characters, and a wildcard only counts as discovered once you've **crafted** (revealed) it.
 
 ### Leveling and skill trees
 - XP banks into your character at run end and raises your **level**. Each level = **1 skill point**.
@@ -184,6 +211,13 @@ The Continue screen shows each character's total saved **fragments** count.
 - [ ] Swap loadout between Equipped and Storage; switch the active slot with 1/2 mid-fight.
 - [ ] Confirm passive bases (Aura/Summon) keep firing from the **off-hand** slot.
 - [ ] Try to overload a build with stacked modifiers. Does damage/cooldown read sensibly in the preview?
+- [ ] **Wildcards**: find one (face-down "???"), socket it into a wildcard slot and craft. Does it reveal its face, log in the Collection, and apply its effect (try Overcharge / Famine / Resonance)?
+
+**Audio, UI & Collection**
+- [ ] Music plays on the menu and switches to battle themes in a run; the Settings sliders (Master/Music/Effects/UI) actually change the levels.
+- [ ] On the web build, sound starts after your first click/keypress.
+- [ ] The **Show new fragments** toggle and **HUD Size** slider work, and settings persist after a restart.
+- [ ] **Collection** opens from the menu, shows discovered fragments in full and undiscovered ones as silhouettes, and the counts look right.
 
 **Interactions**
 - [ ] **Shatter**: freeze an enemy with Ice, then hit it with Fire. Does the AoE pop?
@@ -204,24 +238,30 @@ The Continue screen shows each character's total saved **fragments** count.
 
 These are visible in the build but intentionally unfinished:
 
-- **Settings menu**: the main-menu Settings button opens a "Coming soon" placeholder. No options yet.
-- **The boss** is a **stub**: a big, slow, durable target with no special attacks, phases, or telegraphs. It exists to give the run a climax and a win state. Real boss behaviour comes later.
+- **The boss** is still a **stub**: a big, slow, durable hexagon with no special attacks, phases, or telegraphs. It now fences a circular **arena** around you when it spawns (neither you nor the boss can leave until it dies), and it's a guaranteed fragment drop, but its real phase behaviour and attacks come later.
 - **Some skill-tree perks are shown and selectable but have no effect yet.** Their tooltip says **"(effect coming soon)"**. They still cost a skill point if you buy them. The currently-inert perks are:
   - **Fire**: Wildfire, Scorched Earth, Pyroclasm
   - **Ice**: Deep Freeze, Shatterpoint
   - **Void**: Unstable, Implosion, Oblivion
   - **Light**: Purifier
   - (All other perks, including damage, drop-weight, status-stack, shard/XP, chain/split, ice-shield, Berserker low-HP, Permafrost, and Luminate/Mark perks, **are** live.)
-- **Wildcard slots** appear on Rare/Epic ability frames, but **no wildcard fragments exist yet**, so those slots will always stay empty for now.
+- **Wildcards exist now** but **five of the eight don't do anything yet**: Surge, Prism, Windfall, Fracture, and Parasite craft and show a face/tooltip, but their effect is "coming soon". Only Overcharge, Famine, and Resonance are wired (see section 5). Wildcards also currently drop from regular enemies (low chance) rather than being boss-only; that's temporary so they're testable.
 - **Consecrate** (a Light fragment) is defined but its field effect isn't built, so it **won't drop** and does nothing if encountered.
 - **Void-vs-Light suppression** is now **partly live**: your own void abilities trigger it. Any bullet touched by a void fragment is a void source, so landing a void hit wipes your accumulated Luminate light stacks (see section 5). What is **not** built yet is the *enemy/boss* side of this, no enemy attack strips your light buff. So if your light stacks vanish while you are running a void ability, that is intended, not a bug.
 - **Corrupt's enemy-damage reduction** isn't wired yet (Corrupt only slows for now; the friendly-fire part does work).
 - **Missing art**: any fragment without finished art shows a **magenta "no texture"** placeholder of the right shape. It still works; it just looks unfinished.
-- There is **no audio** yet.
 
 ---
 
-## 9. Reporting bugs
+## 9. Data we collect (heads-up)
+
+This test build sends an **anonymous run summary** when a run ends (win, death, or quit-to-menu), so we can see how the game is actually being played. It's **fire-and-forget**: if it fails (offline, ad-blocker, etc.) nothing breaks and you won't notice.
+
+Each summary contains **gameplay stats** about that run (things like how long you survived, what you built, kills, shards/XP), plus some technical metadata: your OS, the engine/game version, and a **random per-tester ID** generated on your machine. If your build is **password-gated**, the tester username tied to your code is also tagged on, so we can tell runs apart per tester. **No names, emails, accounts, or personal data are collected.** If you'd rather not send anything, let us know in Discord.
+
+---
+
+## 10. Reporting bugs
 
 When you hit something, please include:
 1. **What you did** (steps to reproduce).
