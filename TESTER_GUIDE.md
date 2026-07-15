@@ -2,8 +2,6 @@
 
 Thanks for testing **Shard**, a top-down bullet-hell roguelite where you don't pick your upgrades, **you build them** from fragments enemies drop, mid-fight. This guide explains how to play, what to test, and what is intentionally unfinished so you don't report it as a bug.
 
-Please read the **"Known incomplete / placeholder"** section near the bottom before logging issues. A lot of things are visible but not wired up yet, and that's expected at this stage.
-
 ---
 
 ## 1. How to launch
@@ -26,6 +24,8 @@ Please read the **"Known incomplete / placeholder"** section near the bottom bef
 | Pause (full menu) | **Esc** |
 | Peek pause (freeze, keep the board visible) | **P** |
 | Screenshot | **F2** (see "Where screenshots go" below) |
+| Toggle HUD | **F1** |
+| Open console | **~** (tilde, if enabled in Settings > Developer) |
 
 The game renders at a small internal resolution and scales up, so pixel art stays crisp. The window is resizable.
 
@@ -48,11 +48,13 @@ If you're on the GitHub Pages link, just assume **F2 won't help** and grab scree
 
 ### Audio & Settings
 
-The game **now has sound**: a looping menu track, two battle themes that alternate during a run, and effect / UI sounds (pickups, run start, the craft-meter-full chime, button and slider clicks). On the **web build**, audio is muted by the browser until your **first click or keypress**, then it kicks in; that first-gesture delay is normal, not a bug.
+The game has sound: a looping menu track, two battle themes that alternate during a run, and effect/UI sounds (pickups, run start, the craft-meter-full chime, button and slider clicks). On the **web build**, audio is muted by the browser until your **first click or keypress**, then it kicks in; that first-gesture delay is normal, not a bug.
 
 Open **Settings** from the main menu to adjust:
 - **Volume**: Master, Music, Effects, and UI Sounds (independent sliders).
-- **Display**: toggle the bottom-right **"new fragments"** overlay, and a **HUD Size** slider.
+- **Display**: toggle the bottom-right **"new fragments"** overlay, bullet trails toggle, and a **HUD Size** slider.
+- **Accessibility**: toggle to show/hide the HUD (also toggled by F1).
+- **Developer**: console toggle (~ key), session logging toggle, and an "Open data folder" button.
 
 Settings are saved and persist between sessions.
 
@@ -64,26 +66,32 @@ Settings are saved and persist between sessions.
 From the menu you have:
 - **New Character** / **Continue** (resume a saved character).
 - **Collection**: a game-wide discovery log of every fragment in the game (see section 6).
-- **Settings**: audio volumes and a couple of display options (see "Audio & Settings" below).
+- **Settings**: audio volumes, display, accessibility, and developer options (see "Audio & Settings" above).
 - **Exit**.
 
 ### Getting into a run
-1. **Main Menu** → **New Character**.
+1. **Main Menu** -> **New Character**.
 2. **Create Character**: pick an **appearance** (one of four crystal avatars, purely cosmetic) and a **mode**:
    - **Standard**: death keeps your character, its stockpile, and its levels.
    - **Ironman**: *permadeath*, death ends that character for good (it stays listed but greyed out, and can never be replayed).
    - Press **Confirm**.
-3. **Select Run**: this screen shows your character, level, and XP. From here you can:
+3. **Run Select**: this screen shows your character, level, and XP. From here you can:
    - Open **Skills** to spend skill points (see below).
-   - Start **5-Minute Survival** (the only run type right now).
-4. The run begins. You spawn into an open world; enemies stream in from off-screen.
+   - Open **Stats** to see your character's run history.
+   - Press **Play** to go to run selection.
+4. **Run Selection**: press **Create Custom Run** to open the custom builder. Pick your options:
+   - **Time length**: 1:00, 2:00, 3:00, 5:00, 8:00, or 12:00.
+   - **Boss**: choose from The Pyre, The Hollow, The Permafrost, Practice Boss, or **Boss Rush** (all three real bosses in random order at 1/3 time intervals).
+   - **Enemy density** and **difficulty modifiers** if you want to customize the challenge.
+5. The run begins. You spawn into an open world; enemies stream in from off-screen.
 
 To come back to an existing character later, use **Continue** from the main menu instead of New Character.
 
 ### Surviving a run
-- **Survive 5 minutes.** A timer counts up at the top-centre toward `5:00`.
-- At `5:00` the timer flips to **BOSS** and a large boss spawns into whatever chaos is already on screen. **Kill the boss to win.**
-- You start with **10 HP** and a single basic **Projectile** ability. **There is no healing in this game**; every hit you take is permanent for the run, so dodging matters.
+- **Survive until the boss spawns.** A timer counts up at the top-centre toward your chosen run length. The default is 5:00.
+- When the timer hits the mark it flips to **BOSS** and the selected boss spawns into whatever chaos is already on screen. **Kill the boss to win.**
+- In **Boss Rush** mode, all three real bosses spawn in random order at 1/3 time intervals. Kill all three to win.
+- You start with **10 HP** and a single basic **Projectile** ability. There is no healing during a run; every hit you take is permanent for the run, so dodging matters. (You can use the `heal` console command if testing.)
 - Enemies deal damage by touching you. After a hit you get a brief moment of invulnerability so one bump costs one hit.
 - Dying ends the run immediately (see persistence below for what you keep).
 
@@ -92,27 +100,31 @@ Every enemy you kill can drop:
 - **Shards** (gold diamonds): currency, used only for decrafting. Fly to you when you get close.
 - **XP orbs** (cyan-green): bank into your character's level at the end of the run.
 - **Fragments** (icons): the building blocks of your abilities. Drop chance varies by enemy type (around 15% for a typical enemy): fast swarmers drop them rarely, while big tanky enemies drop them far more often, and the boss is a guaranteed drop. New fragments show in the bottom-right **"NEW FRAGMENTS"** overlay, which pulses to nudge you toward crafting.
+- **Elite enemies** (gold crown): appear after 2:00 at an 8% chance. They have 1.5x HP, 1.15x speed, and 1.3x contact damage. They always drop a fragment.
 
 ---
 
 ## 4. The Craft Meter and crafting (the core of the game)
 
-- The **Craft Meter** (bottom-centre) fills as you **kill enemies**. It starts **full** at the beginning of a run, so you can craft immediately.
+- The **Craft Meter** (bottom-centre) fills as you **collect shards** (not from kills directly). It starts **full** at the beginning of a run, so you can craft immediately.
 - When it's full, the prompt **"CRAFT READY, press C"** appears. Press **C** to open the crafting screen. **The game pauses while you craft.** Closing the screen resumes the game and shoves nearby enemies back to give you breathing room.
-- Opening the screen spends the full meter, so you have to earn the next craft with more kills.
+- Opening the screen spends the full meter, so you have to earn the next craft with more shard collection.
 
 ### Inside the crafting screen
 Everything is **drag-and-drop**:
-- **Craft Bench** (left): drag a **base** fragment here. The base's frame appears with empty **modifier slots**. Drag **modifier** fragments onto those slots. Press the **CRAFT** button (or **C**) to assemble the ability.
+- **Craft Bench** (left): drag a **base** fragment here. The base's frame appears with empty **modifier slots** and **wildcard slots**. Drag modifier fragments onto modifier slots, wildcard fragments onto wildcard slots. Press the **CRAFT** button (or **C**) to assemble the ability.
 - **Equipped** (top-left): your two ability slots. A freshly crafted ability auto-fills the first empty slot, otherwise it goes to **Storage**.
 - **Storage** (bottom-left): crafted abilities you own but don't have equipped. Drag between Equipped and Storage to swap your loadout.
 - **Fragments** (right): your loose fragment inventory; drag from here.
 - A live **preview** under the bench shows what the bench will produce (damage, cooldown, etc.).
 
+### Wildcard reveal
+Wildcards are **face-down** when you pick them up (shown as a "???" unknown glyph). When you craft an ability with a face-down wildcard, a **reveal animation** plays: the glyph pulses, shakes, flashes white, and flips to reveal the real wildcard with a name banner. The reveal happens while the game is paused (crafting pauses), so it's a safe dramatic beat.
+
 ### Modifying and breaking down abilities (the decraft economy)
-- **Adding** a modifier to an ability is **free** (drag a fragment onto an open socket on an equipped/stored ability).
-- **Removing** a modifier costs **10 shards** and is **confirm-gated**. The removed fragment has a chance to be **destroyed** based on its rarity (Common ~50%, Rare ~15%, Epic ~10%). If it survives, it returns to your inventory.
-- Once an ability is stripped down to just its **bare base** (no modifiers), you can drag it onto the **Fragments** panel to break it back into a base fragment, **for free**.
+- **Adding** a modifier or wildcard to an ability is **free** (drag a fragment onto an open socket).
+- **Removing** a modifier or wildcard costs **10 shards** and is **confirm-gated**. The removed fragment has a chance to be **destroyed** based on its rarity (Common 50%, Rare 15%, Wildcard 5%). If it survives, it returns to your inventory.
+- Once an ability is stripped down to just its **bare base** (no modifiers or wildcards), you can drag it onto the **Fragments** panel to break it back into a base fragment, **for free**.
 
 > Decrafting is intentionally risky and final; that's the design, not a bug.
 
@@ -133,27 +145,39 @@ Everything is **drag-and-drop**:
 Manual bases (Projectile / Nova / Beam / Trap) fire only from the **active** slot when you hold fire. Passive bases (Aura / Summon) run on their own from **either** slot, so an off-hand aura keeps working while you shoot the other ability.
 
 ### Modifier families
-- **Behavioral**: Chain (jumps between enemies), Volley (3-shot spread), Homing (seeks), Split (forks on impact), Detonate (explodes on hit/expiry).
-- **Stat**: Amplify (+25% damage), Accelerate (+40% speed), Hasten (-30% cooldown).
-- **Fire** 🔥: Ignite (burn stacks), Scorch (fire splash), Inferno (scales with burning enemies).
-- **Ice** ❄️: Chill (frost stacks → Freeze), Glaciate (kill grants a shield), Permafrost (frozen enemies auto-shatter).
-- **Void** 🟣: Corrupt (debuff → turns enemies on each other), Entropy (chaos damage roll), Unravel (void implosion on kill).
-- **Light** ✨: Radiance (retaliation halo), Luminate (marks enemies, banks a stacking damage buff), Consecrate (see "incomplete" below).
+- **Behavioral**: Chain (jumps between enemies), Volley (3-shot spread), Homing (seeks), Split (forks on impact), Detonate (explodes on hit/expiry), Echo (fires a timed 50% copy).
+- **Stat**: Amplify (+25% damage), Accelerate (+40% speed), Hasten (-30% cooldown), Expand (+35% size), Endure (+50% duration on timed effects).
+- **Fire**: Ignite (burn stacks), Scorch (fire splash on hit), Inferno (scales with burning enemies on screen).
+- **Ice**: Chill (frost stacks then Freeze), Glaciate (kill grants a shield), Permafrost (frozen enemies auto-shatter after 2s).
+- **Void**: Corrupt (debuff stacks, then Corrupted enemies attack neighbours), Entropy (chaos damage roll x0.5-2.5), Unravel (void implosion on kill).
+- **Light**: Radiance (retaliation halo), Luminate (marks enemies, banks a stacking damage buff), Consecrate (drops a light aura on kill; void projectiles passing through it become Corrupted Light).
 
-### Wildcards (the boss-tier band, now in)
-Wildcard fragments exist now and **fill the rainbow `+1` / `+2` wildcard slots** on Rare/Epic frames (and Common's single wildcard slot). They're meant to be the **boss reward**, but for now they're **seeded into the normal enemy drop pool at low weight** so you can find and test them without grinding bosses.
+### Wildcards (11 total)
+Wildcards fill the rainbow `+1` / `+2` wildcard slots on Rare/Epic frames (and Common's single wildcard slot). They are face-down until crafted into an ability, at which point a reveal animation plays and they log in your Collection. All 11 are wired:
 
-A wildcard is **face-down until you craft it into an ability** (it shows the unknown glyph and a "???" tooltip in your inventory; crafting it reveals its real face and logs it in your Collection). The current pool is eight:
-- **Wired now**: **Overcharge** (+100% damage, but doubled cooldown), **Famine** (+80% damage, but ignores Luminate light stacks), **Resonance** (+15% damage per other equipped ability sharing its element).
-- **Registered but effect "coming soon"** (they craft and show a face/tooltip, but do nothing yet): **Surge, Prism, Windfall, Fracture, Parasite**.
+| Wildcard | Effect |
+|---|---|
+| **Overcharge** | +200% damage, x2 cooldown |
+| **Famine** | +40% damage, ignores Luminate buff |
+| **Resonance** | +20% damage per unique element on the ability |
+| **Surge** | Speed rush (1.6x speed for 3s) when you take damage |
+| **Prism** | Random status effect on each hit |
+| **Windfall** | Kills refund Craft Meter charge + 1 shard |
+| **Fracture** | 3 bullets fire on kill |
+| **Parasite** | Latches to an enemy, explodes on host death |
+| **One for All** | 10x damage, takes the entire wildcard slot (removes all other mods/wilds) |
+| **Augment** | +1 modifier slot |
+| **Sprawl** | +2 modifier slots, -20% damage |
 
 ### Status effects and reactions (worth testing deliberately)
-- **Burn** (Fire): ticks damage; at high stacks it **spreads** to nearby enemies.
-- **Chill → Freeze** (Ice): frost stacks slow the enemy, then **Freeze** it solid at full stacks.
-- **Shatter** (the headline reaction): hit a **Frozen** enemy with **Fire** (or freeze a burning one) to detonate a big icy AoE scaled to the enemy's max HP. **Permafrost** makes frozen enemies shatter on their own after a couple seconds.
-- **Mark** (Light/Luminate): marked enemies take **+20% damage from all sources**. Each kill by a Luminate ability banks a stacking damage buff to **all** your abilities (shown as "LIGHT ×N" under the timer).
-- **Corrupt** (Void): stacks a debuff; at full stacks the enemy is **Corrupted** and attacks its own neighbours.
-- **Light vs Void tension**: a void hit strips a Mark off an enemy. It also **wipes your own Luminate light stacks** (your "LIGHT ×N" buff): any bullet touched by a void fragment counts as a void source, so landing a void hit resets that buff to zero. In other words, leaning on void and stacking light at the same time fights itself.
+- **Burn** (Fire): ticks damage every 0.5s; at 10 stacks it **spreads** to nearby enemies.
+- **Chill -> Freeze** (Ice): frost stacks slow the enemy, then **Freeze** it solid at 7 stacks (lasts 2.5s).
+- **Shatter** (the headline reaction): hit a **Frozen** enemy with **Fire** (or freeze a burning one) to detonate a big icy AoE scaled to the enemy's max HP. **Permafrost** makes frozen enemies shatter on their own after 2s.
+- **Stun** (Nova / Detonate / boss attacks): stops the enemy from acting for 0.8s. Bosses are stun-immune.
+- **Mark** (Light/Luminate): marked enemies take **+20% damage from all sources**. Each kill by a Luminate ability banks a stacking damage buff to **all** your abilities (shown as "LIGHT xN" under the timer).
+- **Debuffed -> Corrupted** (Void): Debuffed stacks slow the enemy (-20% speed, up to 3 stacks). At 3 stacks the enemy turns **Corrupted** and attacks its nearest non-corrupted neighbour every 2s.
+- **Light vs Void tension**: a void hit strips a Mark off an enemy. It also **wipes your own Luminate light stacks** (your "LIGHT xN" buff): any bullet touched by a void fragment counts as a void source, so landing a void hit resets that buff to zero. Leaning on void and stacking light at the same time fights itself.
+- **Consecrate + Corrupted Light**: when you have Consecrate equipped, killing an enemy drops a light aura on the ground. Your void projectiles that pass through the aura become **Corrupted Light** (2.5x damage). The aura is small (72px radius), so you have to aim through it deliberately.
 
 Combining elements across your two ability slots (e.g. one Ice ability to freeze, one Fire ability to shatter) is the intended way to play. Please test cross-element combos heavily.
 
@@ -190,7 +214,7 @@ Open **Collection** from the main menu to see every fragment in the game, split 
 - XP banks into your character at run end and raises your **level**. Each level = **1 skill point**.
 - Spend points in the **Skills** screen (from Select Run): **five element trees** (Kinetic, Fire, Ice, Void, Light), each a small branching tree where a capstone needs nodes from both branches.
 - **Respec is free**: use the Respec button to refund all points and re-spend.
-- Perks **only supplement** crafting (buff fragments/elements/economy). They never give you an ability.
+- All 30 perks (6 per tree) are wired and have real effects. Perks **only supplement** crafting (buff fragments/elements/economy). They never give you an ability.
 
 ---
 
@@ -205,32 +229,40 @@ Open **Collection** from the main menu to see every fragment in the game, split 
 - [ ] Confirm shards and the Craft Meter reset each run, while XP/level and your fragment haul persist.
 - [ ] Quit-to-menu from the pause screen mid-run. Are your fragments banked?
 
+**Custom run builder**
+- [ ] Build a custom run with different time lengths (1:00, 5:00, 12:00). Does the boss spawn at the right time?
+- [ ] Try **Boss Rush** mode. Do all three bosses spawn in order at 1/3 intervals? Does the "Boss N incoming!" warning appear?
+- [ ] Change enemy density and difficulty modifiers. Do they affect gameplay?
+
 **Fragments & crafting**
 - [ ] Craft with every base form (Projectile, Nova, Beam, Trap, Aura, Summon). Do slot counts match the table above?
 - [ ] Add modifiers (free), remove modifiers (costs 10 shards, can destroy), break a bare base back to a fragment (free).
 - [ ] Swap loadout between Equipped and Storage; switch the active slot with 1/2 mid-fight.
 - [ ] Confirm passive bases (Aura/Summon) keep firing from the **off-hand** slot.
 - [ ] Try to overload a build with stacked modifiers. Does damage/cooldown read sensibly in the preview?
-- [ ] **Wildcards**: find one (face-down "???"), socket it into a wildcard slot and craft. Does it reveal its face, log in the Collection, and apply its effect (try Overcharge / Famine / Resonance)?
+- [ ] **Wildcards**: find one (face-down "???"), socket it into a wildcard slot and craft. Does the reveal animation play, does it log in the Collection, and does its effect work?
 
 **Audio, UI & Collection**
 - [ ] Music plays on the menu and switches to battle themes in a run; the Settings sliders (Master/Music/Effects/UI) actually change the levels.
 - [ ] On the web build, sound starts after your first click/keypress.
-- [ ] The **Show new fragments** toggle and **HUD Size** slider work, and settings persist after a restart.
+- [ ] The **Show new fragments** toggle, **HUD Size** slider, and **Bullet trails** toggle work, and settings persist after a restart.
 - [ ] **Collection** opens from the menu, shows discovered fragments in full and undiscovered ones as silhouettes, and the counts look right.
 
 **Interactions**
 - [ ] **Shatter**: freeze an enemy with Ice, then hit it with Fire. Does the AoE pop?
 - [ ] **Burn spread**, **Corrupt** turning enemies on each other, **Mark** damage bonus, **Luminate** stacking buff.
 - [ ] **Glaciate** shield (kill grants a shield that eats the next hit, shown as a cyan ring around you).
+- [ ] **Consecrate + Corrupted Light**: kill an enemy while Consecrate is equipped, then fire a void projectile through the aura. Does it convert to Corrupted Light?
+- [ ] **Stun** from Nova or Detonate. Does the enemy freeze in place briefly?
 - [ ] Mixing two elements across your two ability slots.
-- [ ] **Void wipes Light**: build up Luminate stacks ("LIGHT ×N" under the timer), then land a hit with a void ability (Corrupt / Entropy / Unravel). The stacks should drop to zero.
+- [ ] **Void wipes Light**: build up Luminate stacks ("LIGHT xN" under the timer), then land a hit with a void ability (Corrupt / Entropy / Unravel). The stacks should drop to zero.
 
 **General feel / bugs**
 - [ ] Anything that crashes, freezes, or throws an error.
 - [ ] Drag-and-drop that drops a fragment into the void, double-spends shards, or duplicates items.
-- [ ] The boss fight at 5:00: does it spawn, can it be killed, does the win screen show?
+- [ ] The boss fight: does it spawn with proper telegraphs, can it be killed, does the win screen show?
 - [ ] Performance during big swarms.
+- [ ] Elite enemies (gold crown). Do they appear after 2:00, drop guaranteed fragments, and feel appropriately dangerous?
 
 ---
 
@@ -238,18 +270,10 @@ Open **Collection** from the main menu to see every fragment in the game, split 
 
 These are visible in the build but intentionally unfinished:
 
-- **The boss** is still a **stub**: a big, slow, durable hexagon with no special attacks, phases, or telegraphs. It now fences a circular **arena** around you when it spawns (neither you nor the boss can leave until it dies), and it's a guaranteed fragment drop, but its real phase behaviour and attacks come later.
-- **Some skill-tree perks are shown and selectable but have no effect yet.** Their tooltip says **"(effect coming soon)"**. They still cost a skill point if you buy them. The currently-inert perks are:
-  - **Fire**: Wildfire, Scorched Earth, Pyroclasm
-  - **Ice**: Deep Freeze, Shatterpoint
-  - **Void**: Unstable, Implosion, Oblivion
-  - **Light**: Purifier
-  - (All other perks, including damage, drop-weight, status-stack, shard/XP, chain/split, ice-shield, Berserker low-HP, Permafrost, and Luminate/Mark perks, **are** live.)
-- **Wildcards exist now** but **five of the eight don't do anything yet**: Surge, Prism, Windfall, Fracture, and Parasite craft and show a face/tooltip, but their effect is "coming soon". Only Overcharge, Famine, and Resonance are wired (see section 5). Wildcards also currently drop from regular enemies (low chance) rather than being boss-only; that's temporary so they're testable.
-- **Consecrate** (a Light fragment) is defined but its field effect isn't built, so it **won't drop** and does nothing if encountered.
-- **Void-vs-Light suppression** is now **partly live**: your own void abilities trigger it. Any bullet touched by a void fragment is a void source, so landing a void hit wipes your accumulated Luminate light stacks (see section 5). What is **not** built yet is the *enemy/boss* side of this, no enemy attack strips your light buff. So if your light stacks vanish while you are running a void ability, that is intended, not a bug.
-- **Corrupt's enemy-damage reduction** isn't wired yet (Corrupt only slows for now; the friendly-fire part does work).
+- **The Leaper** enemy borrows the Rusher sprite as a placeholder (it has its own behavior but not its own art yet).
 - **Missing art**: any fragment without finished art shows a **magenta "no texture"** placeholder of the right shape. It still works; it just looks unfinished.
+- **Consecrate aura visual**: the aura ring uses a code-drawn Line2D rather than the authored `consecrate_aura1-6.png` art frames. It functions correctly; it just doesn't use the final art.
+- **Audio**: all sound effects are silent `.wav` placeholders. The music tracks work; the SFX do not produce sound yet.
 
 ---
 
