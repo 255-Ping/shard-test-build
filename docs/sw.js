@@ -1,11 +1,11 @@
 // Network-first service worker for the Shard web build (GitHub Pages).
 //
-// GitHub Pages serves static files (index.html / index.wasm / index.pck …) from a
+// GitHub Pages serves static files (index.html / index.wasm / index.pck ...) from a
 // cache window, and the Godot loader reuses the same filenames every build, so a
 // returning player's browser can keep serving the OLD build. This worker fixes that:
 // every same-origin GET is re-fetched with `cache: 'no-cache'`, which forces the
 // browser to revalidate against the server. Unchanged files come back 304 (served
-// from the local cache, no re-download), changed files come back fresh — so a new
+// from the local cache, no re-download), changed files come back fresh -- so a new
 // deploy reaches returning players on their next load, without re-downloading the
 // whole ~multi-MB wasm/pck every time. The Cache API copy is kept only as an OFFLINE
 // fallback. skipWaiting + clients.claim let a new worker take over immediately.
