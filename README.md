@@ -18,7 +18,7 @@
 ## What's in this build
 
 - 6 base forms: Projectile, Nova, Beam, Trap, Aura, Summon
-- 17 modifiers across 6 families (behavioral, stat, fire, ice, void, light)
+- 25 modifiers across 6 families (behavioral, stat, fire, ice, void, light)
 - 11 wildcard fragments with full reveal animation
 - 3 bosses: The Pyre, The Hollow, The Permafrost
 - Boss Rush mode (all 3 bosses in sequence)

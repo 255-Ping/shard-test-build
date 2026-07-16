@@ -66,6 +66,8 @@ Settings are saved and persist between sessions.
 From the menu you have:
 - **New Character** / **Continue** (resume a saved character).
 - **Collection**: a game-wide discovery log of every fragment in the game (see section 6).
+- **Leaderboard**: ranked scores from all testers (Score / Level / Kills tabs).
+- **Telemetry**: aggregate playtest stats (win rate, avg kills, level distribution, boss kill counts).
 - **Settings**: audio volumes, display, accessibility, and developer options (see "Audio & Settings" above).
 - **Exit**.
 
@@ -148,9 +150,9 @@ Manual bases (Projectile / Nova / Beam / Trap) fire only from the **active** slo
 - **Behavioral**: Chain (jumps between enemies), Volley (3-shot spread), Homing (seeks), Split (forks on impact), Detonate (explodes on hit/expiry), Echo (fires a timed 50% copy).
 - **Stat**: Amplify (+25% damage), Accelerate (+40% speed), Hasten (-30% cooldown), Expand (+35% size), Endure (+50% duration on timed effects).
 - **Fire**: Ignite (burn stacks), Scorch (fire splash on hit), Inferno (scales with burning enemies on screen).
-- **Ice**: Chill (frost stacks then Freeze), Glaciate (kill grants a shield), Permafrost (frozen enemies auto-shatter after 2s).
+- **Ice**: Chill (frost stacks then Freeze), Rime (chill splash on kill), Glaciate (kill grants a shield), Permafrost (frozen enemies auto-shatter after 2s).
 - **Void**: Corrupt (debuff stacks, then Corrupted enemies attack neighbours), Entropy (chaos damage roll x0.5-2.5), Unravel (void implosion on kill).
-- **Light**: Radiance (retaliation halo), Luminate (marks enemies, banks a stacking damage buff), Consecrate (drops a light aura on kill; void projectiles passing through it become Corrupted Light).
+- **Light**: Radiance (retaliation halo), Luminate (marks enemies, banks a stacking damage buff), Apex (buff stacks on kill that increase all upgrade damage), Consecrate (drops a light aura on kill; void projectiles passing through it become Corrupted Light).
 
 ### Wildcards (11 total)
 Wildcards fill the rainbow `+1` / `+2` wildcard slots on Rare/Epic frames (and Common's single wildcard slot). They are face-down until crafted into an ability, at which point a reveal animation plays and they log in your Collection. All 11 are wired:
@@ -188,10 +190,11 @@ Combining elements across your two ability slots (e.g. one Ice ability to freeze
 This is one of the most important things to test. The model is **soft persistence**:
 
 | Carries over | Does **not** carry over |
-|---|---|
-| Your **equipped loadout** (both abilities, fully assembled) | **Shards** (reset to 0 each run) |
-| Your **stored crafted abilities** (the Storage stash, kept assembled) | The **Craft Meter** (refills each run) |
-| **Every loose fragment you're holding**, any rarity or type (Common to Epic, modifiers and bases) | (nothing else: your whole haul carries) |
+|---|---|---|
+| Your **equipped loadout** (both abilities, fully assembled) | The **Craft Meter** (refills each run) |
+| Your **stored crafted abilities** (the Storage stash, kept assembled) | (nothing else: your whole haul carries) |
+| **Every loose fragment you're holding**, any rarity or type (Common to Epic, modifiers and bases) | |
+| **Shards** (the decraft currency) | |
 | Character **XP, level, and unlocked perks** | |
 | **Avatar** and **mode** | |
 
@@ -256,6 +259,12 @@ Run `help` in the console to see the full list. The console is a dev tool -- usi
 - [ ] Try **Boss Rush** mode. Do all three bosses spawn in order at 1/3 intervals? Does the "Boss N incoming!" warning appear?
 - [ ] Change enemy density and difficulty modifiers. Do they affect gameplay?
 
+**Leaderboard & Telemetry**
+- [ ] Open **Leaderboard** from the main menu. Does it load entries (or show "No entries yet" on a fresh DB)?
+- [ ] Switch between the Score / Level / Kills tabs. Do entries re-sort correctly?
+- [ ] Complete a run. Does your score appear on the leaderboard?
+- [ ] **Telemetry** from the main menu: does it load aggregate stats? Are the charts (donut, boss bars, level distribution) rendering?
+
 **Fragments & crafting**
 - [ ] Craft with every base form (Projectile, Nova, Beam, Trap, Aura, Summon). Do slot counts match the table above?
 - [ ] Add modifiers (free), remove modifiers (costs 10 shards, can destroy), break a bare base back to a fragment (free).
@@ -294,8 +303,7 @@ These are visible in the build but intentionally unfinished:
 
 - **The Leaper** enemy borrows the Rusher sprite as a placeholder (it has its own behavior but not its own art yet).
 - **Missing art**: any fragment without finished art shows a **magenta "no texture"** placeholder of the right shape. It still works; it just looks unfinished.
-- **Consecrate aura visual**: the aura ring uses a code-drawn Line2D rather than the authored `consecrate_aura1-6.png` art frames. It functions correctly; it just doesn't use the final art.
-- **Audio**: all sound effects are silent `.wav` placeholders. The music tracks work; the SFX do not produce sound yet.
+- **detonate.wav**: the Detonate modifier sound file is missing (plays nothing; music and other SFX work fine).
 
 ---
 
