@@ -218,7 +218,29 @@ Open **Collection** from the main menu to see every fragment in the game, split 
 
 ---
 
-## 7. What we'd like you to test
+## 7. Developer Console (useful for testing)
+
+Open the console with **`~`** (tilde, requires Settings > Developer > Console enabled). It pauses the game so you can type commands safely. Tab completes commands and arguments; Up/Down walks history.
+
+| Command | What it does | Why you'd use it for testing |
+|---|---|---|
+| `godmode` | Toggle invincibility | Test enemy behavior, boss phases, or walk into a crowd to check knockback / status FX without dying |
+| `heal <amount>` | Restore HP (capped at max) | Recover after testing a hit, skip re-running to reposition |
+| `boss` | Spawn the run's boss immediately | Test boss encounters without waiting for the timer; works in Boss Rush too (advances to next boss) |
+| `time set <s>` / `time add <s>` | Jump or advance the run clock | Skip to the boss spawn time, test late-game spawn ramps, or fast-forward through quiet sections |
+| `killall` | Kill every active enemy | Clear the board to test boss spawn timing or measure performance of an empty scene |
+| `clearpickups` | Remove all ground pickups | Clean up after a big fight or reset the field for a perf capture |
+| `shards <op> <n>` | Set/add/remove/reset shards | Give yourself decraft budget or test economy edge cases |
+| `getfragment <name>` | Spawn any fragment into your inventory | Test specific combos without relying on RNG drops; Tab completes fragment names |
+| `xp <op> <n>` | Adjust XP | Test level-up pacing, check XP thresholds |
+| `unlockcollection` | Reveal every fragment in the Collection | Verify Collection display, check all tooltips render |
+| `perflog run` / `perflog time <s>` | Capture a performance CSV | Profile frame times, draw calls, memory, enemies/pickups over a run interval; logs to `user://logs/` |
+
+Run `help` in the console to see the full list. The console is a dev tool -- using it won't break your save, but it **does** run commands on the live game state, so `shards add 999` will actually give you 999 shards.
+
+---
+
+## 8. What we'd like you to test
 
 **Persistence**
 - [ ] Create a character, craft an ability, survive or die, return to menu, **Continue**. Is your loadout, level, and fragment haul correct?
@@ -266,7 +288,7 @@ Open **Collection** from the main menu to see every fragment in the game, split 
 
 ---
 
-## 8. Known incomplete / placeholder (please DON'T report these)
+## 9. Known incomplete / placeholder (please DON'T report these)
 
 These are visible in the build but intentionally unfinished:
 
@@ -277,7 +299,7 @@ These are visible in the build but intentionally unfinished:
 
 ---
 
-## 9. Data we collect (heads-up)
+## 10. Data we collect (heads-up)
 
 This test build sends an **anonymous run summary** when a run ends (win, death, or quit-to-menu), so we can see how the game is actually being played. It's **fire-and-forget**: if it fails (offline, ad-blocker, etc.) nothing breaks and you won't notice.
 
@@ -285,7 +307,7 @@ Each summary contains **gameplay stats** about that run (things like how long yo
 
 ---
 
-## 10. Reporting bugs
+## 11. Reporting bugs
 
 When you hit something, please include:
 1. **What you did** (steps to reproduce).
